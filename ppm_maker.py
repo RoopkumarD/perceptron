@@ -24,8 +24,13 @@ def create_ppm_image(input: List[List[float]]):
             # 1 * 3 + 0 = 3
             # later multiplied by 3 as in above, the rgb channels are not separate list
             # but in same array, so [0,0,255] * 2 * 2 => [0,0,255,0,0,255,0,0,255,0,0,255]
-
             index = 3 * (i * width + j)
+
+            # since we have scaled the image, now we want the find the color associated with it
+            # and those cells will have same color as that of which expanded
+            # thus dividing by the expansion to get the input
+            # if input -> 2 * 2 and we expand by 2. Then image is 2 * 2 width and 2 * 2 height
+            # now (0,0) (0,1) (1,0) (1,1) all are based of (0,0) in original input
             color = range_to_color(
                 input[math.floor(i / DIM_PPM_SCALER)][math.floor(j / DIM_PPM_SCALER)]
             )
