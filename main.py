@@ -1,6 +1,9 @@
-from create_shapes import *
-from ppm_maker import create_ppm_image
+from perceptron import Perceptron
 
-k = create_random_circle(200, 200)
+perceptron = Perceptron(200, 200)
 
-create_ppm_image(k)
+for _ in range(10):
+    perceptron.training_on_random()
+
+
+perceptron.get_final_weight_as_image()
