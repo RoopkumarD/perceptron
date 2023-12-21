@@ -1,3 +1,5 @@
+# used this file as to test perceptron
+
 from perceptron import Perceptron
 
 perceptron = Perceptron(200, 200)
