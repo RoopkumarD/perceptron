@@ -2,10 +2,10 @@ import math
 
 
 def range_to_color(num: float):
-    if num > 20 or num < -20:
-        raise Exception("Range is between -10 to 10")
-    dx = 255 / 40
-    val = math.floor((num + 20) * dx)
+    if num > 30 or num < -30:
+        raise Exception("Range is between -20 to 20")
+    dx = 255 / 60
+    val = math.floor((num + 30) * dx)
 
     return (0, 255 - val, val)
 
