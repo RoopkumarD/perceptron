@@ -2,12 +2,23 @@ import array
 import math
 from typing import List
 
-from utils import range_to_color
+from utils import bezier_gradient
 
 DIM_PPM_SCALER = 2
 
 
 def create_ppm_image(input: List[List[float]]):
+    lowest_num = 1000000000000
+    biggest_num = -100000000000
+
+    for line in input:
+        for i in line:
+            if i < lowest_num:
+                lowest_num = i
+
+            if i > biggest_num:
+                biggest_num = i
+
     height = len(input) * DIM_PPM_SCALER
     width = len(input[0]) * DIM_PPM_SCALER
 
@@ -31,8 +42,10 @@ def create_ppm_image(input: List[List[float]]):
             # thus dividing by the expansion to get the input
             # if input -> 2 * 2 and we expand by 2. Then image is 2 * 2 width and 2 * 2 height
             # now (0,0) (0,1) (1,0) (1,1) all are based of (0,0) in original input
-            color = range_to_color(
-                input[math.floor(i / DIM_PPM_SCALER)][math.floor(j / DIM_PPM_SCALER)]
+            color = bezier_gradient(
+                input[math.floor(i / DIM_PPM_SCALER)][math.floor(j / DIM_PPM_SCALER)],
+                lowest_num,
+                biggest_num,
             )
             for k in range(3):
                 image[index + k] = color[k]
