@@ -36,10 +36,10 @@ class Perceptron:
     def adjust_weights(self, input_image: List[Tuple[int, int]], shape_name: str):
         if shape_name == "circle":
             for point in input_image:
-                self.weights[point[0]][point[1]] += 1
+                self.weights[point[0]][point[1]] -= 1
         elif shape_name == "rectangle":
             for point in input_image:
-                self.weights[point[0]][point[1]] -= 1
+                self.weights[point[0]][point[1]] += 1
         else:
             raise Exception("Unexpected shape")
 
@@ -69,17 +69,16 @@ class Perceptron:
 
             for _ in range(self.sample_size_of_training_data):
                 random_rect = create_random_rectangle(self.height, self.width)
-                if self.check_with_weights(random_rect) == True:
+                if self.check_with_weights(random_rect) == False:
                     total_times_adjusted += 1
                     self.adjust_weights(random_rect, "rectangle")
-
                 random_circle = create_random_circle(self.height, self.width)
-                if self.check_with_weights(random_circle) == False:
+                if self.check_with_weights(random_circle) == True:
                     total_times_adjusted += 1
                     self.adjust_weights(random_circle, "circle")
 
             print(
-                f"Iteration {m + 1}: Total times adjusted {total_times_adjusted} out of {repeat_training}"
+                f"Iteration {m + 1}: Total times adjusted {total_times_adjusted} out of {repeat_training * 2}"
             )
 
             if total_times_adjusted == 0:
